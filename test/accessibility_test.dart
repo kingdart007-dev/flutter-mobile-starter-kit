@@ -137,26 +137,27 @@ void main() {
         AppTheme.light,
         AppTheme.dark,
       ]) {
-      final ColorScheme colors = theme.colorScheme;
+        final ColorScheme colors = theme.colorScheme;
 
-      expect(
-        _contrastRatio(colors.onSurface, colors.surface),
-        greaterThanOrEqualTo(4.5),
-      );
-      expect(
-        _contrastRatio(colors.onSurfaceVariant, colors.surface),
-        greaterThanOrEqualTo(4.5),
-      );
-      expect(
-        _contrastRatio(colors.onSurfaceVariant, colors.surfaceContainerLow),
-        greaterThanOrEqualTo(4.5),
-      );
-      expect(
-        _contrastRatio(colors.onPrimary, colors.primary),
-        greaterThanOrEqualTo(4.5),
-      );
-    }
-  });
+        expect(
+          _contrastRatio(colors.onSurface, colors.surface),
+          greaterThanOrEqualTo(4.5),
+        );
+        expect(
+          _contrastRatio(colors.onSurfaceVariant, colors.surface),
+          greaterThanOrEqualTo(4.5),
+        );
+        expect(
+          _contrastRatio(colors.onSurfaceVariant, colors.surfaceContainerLow),
+          greaterThanOrEqualTo(4.5),
+        );
+        expect(
+          _contrastRatio(colors.onPrimary, colors.primary),
+          greaterThanOrEqualTo(4.5),
+        );
+      }
+    },
+  );
 }
 
 double _contrastRatio(Color first, Color second) {
