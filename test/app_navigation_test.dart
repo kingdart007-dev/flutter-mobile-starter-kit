@@ -48,6 +48,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('The visual language.'), findsOneWidget);
 
+    await tester.ensureVisible(find.text('Primary action'));
     await tester.tap(find.text('Primary action'));
     await tester.pumpAndSettle();
     expect(
