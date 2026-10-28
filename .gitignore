@@ -1,0 +1,31 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+coverage/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Generated platform configuration
+android/local.properties
+android/key.properties
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/.last_build_id
+
+# Signing material (never commit secrets)
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+*.provisionprofile
+*.entitlements.local
+
+# Editors
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

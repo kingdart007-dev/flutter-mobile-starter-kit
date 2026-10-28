@@ -4,7 +4,7 @@ A product-neutral foundation for building thoughtful, maintainable Flutter appli
 
 The goal is a starter kit that feels idiomatic to Flutter and Dart developers: intentionally small, well-structured, accessible, tested, and easy to adapt—not a generic framework full of abstractions.
 
-> **Status:** Foundation planning. The repository is being established; it is not yet a runnable starter app.
+> **Status: early app scaffold.** The Dart app shell, navigation example, first widget tests, and CI workflow are now committed. The generated `android/` and `ios/` project directories and `pubspec.lock` are not yet checked in. CI creates the native scaffolding with the official Flutter CLI for its build jobs. This is not yet a release-ready starter; the roadmap tracks the remaining validation and repository setup.
 
 ## Principles
 
@@ -17,38 +17,71 @@ The goal is a starter kit that feels idiomatic to Flutter and Dart developers: i
 - **Reliable over ornamental.** Correctness, privacy, platform behavior, and recoverability take priority over visual effects.
 - **No unnecessary machinery.** No Freezed, build_runner, generated app models, product backend, analytics, authentication, or monetization by default.
 
-## Intended stack
+## Stack
 
-- Flutter stable and Dart
+The first scaffold targets Flutter 3.44+ / Dart 3.12+ and uses:
+
+- Flutter and Dart
 - Riverpod for app state and dependency wiring
-- go_router for declarative navigation and deep links
-- Handwritten models and serialization where needed
+- go_router for declarative navigation
+- Handwritten Dart code; no Freezed or code generation
 - Flutter/Dart tests and GitHub Actions quality checks
 
-Package versions and SDK constraints will be chosen together during the runnable scaffold phase and verified in CI.
-
-## What the foundation will provide
-
-- Light, dark, and system theme modes
-- Neutral design tokens for color, type, spacing, shape, and motion
-- Small, accessible shared UI components with explicit APIs
-- Predictable navigation and back behavior
-- A clear approach to asynchronous loading, errors, empty states, and retry
-- English and Arabic localization with correct directionality
-- Focused testing, static analysis, formatting, and CI
-- Concise documentation explaining how to start, adapt, test, and maintain the project
-
-## Project structure
-
-The initial structure will be feature-oriented, with a small app/core layer for genuinely cross-cutting concerns. Shared code will be promoted only when a pattern is real and reusable. See [Architecture](docs/ARCHITECTURE.md) and [Design system](docs/DESIGN_SYSTEM.md).
+See the [go_router package requirements](https://pub.dev/packages/go_router/versions/18.1.1) and [Riverpod package](https://pub.dev/packages/flutter_riverpod) for current package metadata. Dependency compatibility and CI results still need to be verified by the first successful workflow run.
 
 ## Getting started
 
-The runnable instructions will be added once the Flutter SDK scaffold and CI baseline have been created and verified. Do not treat this planning commit as a runnable Flutter project.
+Install Flutter stable and confirm `flutter doctor` is healthy. Android builds require the Android SDK; iOS builds require macOS and Xcode.
+
+Because the generated native platform directories are not checked in yet, generate them once from the repository root using the official Flutter CLI:
+
+```sh
+flutter create --platforms=android,ios --project-name=flutter_mobile_starter_kit --org=com.kingdart --no-pub .
+flutter pub get
+```
+
+Then run the local quality checks:
+
+```sh
+dart format lib test
+flutter analyze --fatal-infos
+flutter test
+```
+
+Launch on a connected Android device/emulator with `flutter run`. iOS simulator/device builds require macOS and Xcode. The setup instructions will be simplified after the native scaffold, dependency lockfile, and CI have been validated and committed.
+
+## Current source layout
+
+```text
+lib/
+  main.dart
+  app/
+    starter_kit_app.dart
+    router/app_router.dart
+    theme/app_theme.dart
+  features/
+    home/presentation/home_screen.dart
+    foundation/presentation/foundation_screen.dart
+test/
+  widget_test.dart
+```
+
+Keep shared code in a small core/shared layer only when it is genuinely cross-cutting. Promote repeated UI patterns into shared components when the public API and reuse are clear—not preemptively.
+
+## Planned foundation
+
+- Light, dark, and system theme modes from a central theme
+- Neutral tokens for color, typography, spacing, shape, and motion
+- Small, accessible shared UI components with explicit APIs
+- Predictable navigation and platform-correct back behavior
+- Loading, empty, error, retry, validation, and feedback patterns where needed
+- English and Arabic localization with correct directionality
+- Focused tests, static analysis, formatting, and CI
+- Concise documentation explaining how to adapt and maintain the project
 
 ## Engineering contract
 
-Repository instructions for contributors and coding agents live in [AGENTS.md](AGENTS.md). The staged implementation plan is in [Roadmap](docs/ROADMAP.md).
+Repository instructions for contributors and coding agents live in [AGENTS.md](AGENTS.md). See [Architecture](docs/ARCHITECTURE.md), [Design system](docs/DESIGN_SYSTEM.md), and the [implementation roadmap](docs/ROADMAP.md).
 
 ## Official references
 
