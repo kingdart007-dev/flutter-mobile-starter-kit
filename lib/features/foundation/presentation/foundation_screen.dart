@@ -129,9 +129,7 @@ class _PrincipleRow extends StatelessWidget {
             children: <Widget>[
               Text(
                 title,
-                style: text.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 6),
               Text(

@@ -10,9 +10,7 @@ void main() {
     testWidgets('shows the mobile foundation home screen', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(
-        const ProviderScope(child: StarterKitApp()),
-      );
+      await tester.pumpWidget(const ProviderScope(child: StarterKitApp()));
       await tester.pumpAndSettle();
 
       expect(find.text('Quietly capable.'), findsOneWidget);
@@ -23,9 +21,7 @@ void main() {
     testWidgets('navigates to the design system showcase', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(
-        const ProviderScope(child: StarterKitApp()),
-      );
+      await tester.pumpWidget(const ProviderScope(child: StarterKitApp()));
       await tester.pumpAndSettle();
 
       await tester.ensureVisible(find.text('Design system'));
@@ -40,9 +36,7 @@ void main() {
     testWidgets('navigates to the engineering principles', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(
-        const ProviderScope(child: StarterKitApp()),
-      );
+      await tester.pumpWidget(const ProviderScope(child: StarterKitApp()));
       await tester.pumpAndSettle();
 
       await tester.ensureVisible(find.text('Engineering principles'));

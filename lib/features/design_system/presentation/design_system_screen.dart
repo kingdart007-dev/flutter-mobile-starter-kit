@@ -77,11 +77,17 @@ class DesignSystemScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Display', style: theme.textTheme.labelMedium?.copyWith(
-                    color: colors.onSurfaceVariant,
-                  )),
+                  Text(
+                    'Display',
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: colors.onSurfaceVariant,
+                    ),
+                  ),
                   const SizedBox(height: AppSpacing.xs),
-                  Text('Make room\nfor clarity.', style: theme.textTheme.displaySmall),
+                  Text(
+                    'Make room\nfor clarity.',
+                    style: theme.textTheme.displaySmall,
+                  ),
                   const SizedBox(height: AppSpacing.lg),
                   Divider(color: colors.outlineVariant),
                   const SizedBox(height: AppSpacing.lg),
@@ -202,10 +208,7 @@ class DesignSystemScreen extends StatelessWidget {
 }
 
 class _ShowcaseHeading extends StatelessWidget {
-  const _ShowcaseHeading({
-    required this.title,
-    required this.description,
-  });
+  const _ShowcaseHeading({required this.title, required this.description});
 
   final String title;
   final String description;
@@ -307,10 +310,7 @@ class _SpacingSample extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 32,
-          child: Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+          child: Text(label, style: Theme.of(context).textTheme.labelMedium),
         ),
         Container(
           height: 12,

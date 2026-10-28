@@ -9,71 +9,77 @@ abstract final class AppTheme {
 
   static ThemeData _buildTheme(Brightness brightness) {
     final bool isLight = brightness == Brightness.light;
-    final ColorScheme colorScheme = ColorScheme.fromSeed(
-      seedColor: AppPalette.ink,
-      brightness: brightness,
-      dynamicSchemeVariant: DynamicSchemeVariant.monochrome,
-    ).copyWith(
-      primary: isLight ? AppPalette.ink : AppPalette.darkText,
-      onPrimary: isLight ? AppPalette.white : AppPalette.ink,
-      secondary: isLight ? AppPalette.graphite : AppPalette.darkMuted,
-      onSecondary: isLight ? AppPalette.white : AppPalette.ink,
-      surface: isLight ? AppPalette.white : AppPalette.darkSurface,
-      onSurface: isLight ? AppPalette.ink : AppPalette.darkText,
-      surfaceContainerLowest:
-          isLight ? AppPalette.white : AppPalette.darkSurface,
-      surfaceContainerLow:
-          isLight ? AppPalette.cloud : AppPalette.darkSurfaceRaised,
-      surfaceContainer:
-          isLight ? AppPalette.cloud : AppPalette.darkSurfaceRaised,
-      surfaceContainerHigh:
-          isLight ? AppPalette.mist : AppPalette.darkSurfaceHigh,
-      surfaceContainerHighest:
-          isLight ? AppPalette.mist : AppPalette.darkSurfaceHigh,
-      outline: isLight ? AppPalette.ash : AppPalette.darkOutline,
-      outlineVariant:
-          isLight ? AppPalette.mist : AppPalette.darkOutline,
-      surfaceTint: Colors.transparent,
-      error: isLight ? AppPalette.error : AppPalette.errorDark,
-    );
+    final ColorScheme colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: AppPalette.ink,
+          brightness: brightness,
+          dynamicSchemeVariant: DynamicSchemeVariant.monochrome,
+        ).copyWith(
+          primary: isLight ? AppPalette.ink : AppPalette.darkText,
+          onPrimary: isLight ? AppPalette.white : AppPalette.ink,
+          secondary: isLight ? AppPalette.graphite : AppPalette.darkMuted,
+          onSecondary: isLight ? AppPalette.white : AppPalette.ink,
+          surface: isLight ? AppPalette.white : AppPalette.darkSurface,
+          onSurface: isLight ? AppPalette.ink : AppPalette.darkText,
+          surfaceContainerLowest: isLight
+              ? AppPalette.white
+              : AppPalette.darkSurface,
+          surfaceContainerLow: isLight
+              ? AppPalette.cloud
+              : AppPalette.darkSurfaceRaised,
+          surfaceContainer: isLight
+              ? AppPalette.cloud
+              : AppPalette.darkSurfaceRaised,
+          surfaceContainerHigh: isLight
+              ? AppPalette.mist
+              : AppPalette.darkSurfaceHigh,
+          surfaceContainerHighest: isLight
+              ? AppPalette.mist
+              : AppPalette.darkSurfaceHigh,
+          outline: isLight ? AppPalette.ash : AppPalette.darkOutline,
+          outlineVariant: isLight ? AppPalette.mist : AppPalette.darkOutline,
+          surfaceTint: Colors.transparent,
+          error: isLight ? AppPalette.error : AppPalette.errorDark,
+        );
 
     final ThemeData base = ThemeData.from(
       colorScheme: colorScheme,
       useMaterial3: true,
     );
 
-    final TextTheme textTheme = base.textTheme.copyWith(
-      displaySmall: base.textTheme.displaySmall?.copyWith(
-        fontWeight: FontWeight.w600,
-        letterSpacing: -1.2,
-        height: 1.08,
-      ),
-      headlineMedium: base.textTheme.headlineMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-        letterSpacing: -0.6,
-        height: 1.16,
-      ),
-      titleLarge: base.textTheme.titleLarge?.copyWith(
-        fontWeight: FontWeight.w600,
-        letterSpacing: -0.2,
-      ),
-      titleMedium: base.textTheme.titleMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-      ),
-      labelLarge: base.textTheme.labelLarge?.copyWith(
-        fontWeight: FontWeight.w600,
-      ),
-    ).apply(
-      bodyColor: colorScheme.onSurface,
-      displayColor: colorScheme.onSurface,
-    );
+    final TextTheme textTheme = base.textTheme
+        .copyWith(
+          displaySmall: base.textTheme.displaySmall?.copyWith(
+            fontWeight: FontWeight.w600,
+            letterSpacing: -1.2,
+            height: 1.08,
+          ),
+          headlineMedium: base.textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.6,
+            height: 1.16,
+          ),
+          titleLarge: base.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.2,
+          ),
+          titleMedium: base.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+          labelLarge: base.textTheme.labelLarge?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        )
+        .apply(
+          bodyColor: colorScheme.onSurface,
+          displayColor: colorScheme.onSurface,
+        );
 
     return base.copyWith(
       brightness: brightness,
       colorScheme: colorScheme,
       textTheme: textTheme,
-      scaffoldBackgroundColor:
-          isLight ? AppPalette.paper : AppPalette.night,
+      scaffoldBackgroundColor: isLight ? AppPalette.paper : AppPalette.night,
       canvasColor: isLight ? AppPalette.paper : AppPalette.night,
       appBarTheme: AppBarTheme(
         backgroundColor: isLight ? AppPalette.paper : AppPalette.night,

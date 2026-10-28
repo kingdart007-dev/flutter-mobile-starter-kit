@@ -118,8 +118,7 @@ class HomeScreen extends StatelessWidget {
               child: const _DestinationRow(
                 icon: Icons.palette_outlined,
                 title: 'Design system',
-                description:
-                    'Monochrome tokens, type, surfaces, and controls.',
+                description: 'Monochrome tokens, type, surfaces, and controls.',
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
