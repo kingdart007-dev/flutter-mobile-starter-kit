@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_starter_kit/app/localization/app_strings.dart';
 import 'package:flutter_mobile_starter_kit/app/preferences/app_preferences.dart';
 import 'package:flutter_mobile_starter_kit/app/starter_kit_app.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
