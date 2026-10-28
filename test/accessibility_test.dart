@@ -129,4 +129,40 @@ void main() {
     expect(find.text(longTitle), findsOneWidget);
     expect(tester.getSize(find.text(longTitle)).height, greaterThan(48));
   });
+
+  test('semantic text and primary-action colors meet text contrast targets', () {
+    for (final ThemeData theme in <ThemeData>[AppTheme.light, AppTheme.dark]) {
+      final ColorScheme colors = theme.colorScheme;
+
+      expect(
+        _contrastRatio(colors.onSurface, colors.surface),
+        greaterThanOrEqualTo(4.5),
+      );
+      expect(
+        _contrastRatio(colors.onSurfaceVariant, colors.surface),
+        greaterThanOrEqualTo(4.5),
+      );
+      expect(
+        _contrastRatio(colors.onSurfaceVariant, colors.surfaceContainerLow),
+        greaterThanOrEqualTo(4.5),
+      );
+      expect(
+        _contrastRatio(colors.onPrimary, colors.primary),
+        greaterThanOrEqualTo(4.5),
+      );
+    }
+  });
+}
+
+double _contrastRatio(Color first, Color second) {
+  final double firstLuminance = first.computeLuminance();
+  final double secondLuminance = second.computeLuminance();
+  final double lighter = firstLuminance > secondLuminance
+      ? firstLuminance
+      : secondLuminance;
+  final double darker = firstLuminance > secondLuminance
+      ? secondLuminance
+      : firstLuminance;
+
+  return (lighter + 0.05) / (darker + 0.05);
 }
