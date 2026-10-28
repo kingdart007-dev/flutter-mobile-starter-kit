@@ -19,12 +19,12 @@ jobs:
     name: Format, analyze, test, and Android build
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    permissions:
-      contents: write
 
     steps:
       - name: Check out source
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Set up stable Flutter
         uses: subosito/flutter-action@v2
@@ -32,57 +32,26 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Detect initial scaffold
-        id: scaffold
+      - name: Verify committed Android/iOS scaffold
         shell: bash
         run: |
-          if [[ ! -d android || ! -d ios || ! -f pubspec.lock ]]; then
-            echo "needed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "needed=false" >> "$GITHUB_OUTPUT"
-          fi
+          required_paths=(
+            android/gradlew
+            ios/Runner.xcodeproj/project.pbxproj
+            pubspec.lock
+          )
+          for path in "${required_paths[@]}"; do
+            if [[ ! -e "$path" ]]; then
+              echo "::error::Required committed scaffold file '$path' is missing. Generate platform scaffolding locally with Flutter and commit the files."
+              exit 1
+            fi
+          done
 
-      - name: Generate native platform scaffolding when absent
-        if: steps.scaffold.outputs.needed == 'true'
-        shell: bash
-        run: |
-          flutter create \
-            --platforms=android,ios \
-            --project-name=flutter_mobile_starter_kit \
-            --org=com.kingdart \
-            --no-pub \
-            .
-
-      - name: Resolve dependencies
-        run: flutter pub get
-
-      # Direct-to-main maintenance commits are formatted before strict checks.
-      # Pull requests still fail if formatting is needed, so proposed changes
-      # must arrive already formatted and reviewable.
-      - name: Format Dart code on main branch pushes
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: dart format lib test
+      - name: Resolve dependencies from the committed lockfile
+        run: flutter pub get --enforce-lockfile
 
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed lib test
-
-      # Diagnostic-only. This never weakens or bypasses a quality gate.
-      - name: Export generated scaffold for remediation
-        if: failure()
-        shell: bash
-        run: |
-          dart format lib test
-          tar -czf "${RUNNER_TEMP}/starter-scaffold.tar.gz" \
-            lib test android ios pubspec.yaml pubspec.lock \
-            analysis_options.yaml .gitignore README.md
-
-      - name: Upload generated scaffold for remediation
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: starter-scaffold-remediation
-          path: ${{ runner.temp }}/starter-scaffold.tar.gz
-          retention-days: 1
 
       - name: Analyze Dart and Flutter code
         run: flutter analyze --fatal-infos
@@ -93,23 +62,6 @@ jobs:
       - name: Build Android debug APK
         run: flutter build apk --debug
 
-      # Commit only outputs validated in this exact workspace. On pull requests
-      # this step never writes; it also does nothing if pub get/format made no
-      # changes. The bootstrap scaffold is committed using the same mechanism.
-      - name: Commit validated scaffold, formatting, and lockfile
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add android ios pubspec.yaml pubspec.lock analysis_options.yaml lib test
-          if git diff --cached --quiet; then
-            echo "No formatted source, lockfile, or scaffold changes to commit."
-            exit 0
-          fi
-          git commit -m "chore: sync validated Flutter scaffold"
-          git push origin HEAD:main
-
   ios:
     name: Build iOS application
     # Pin the macOS image to keep the Xcode toolchain from changing implicitly.
@@ -119,6 +71,8 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Set up stable Flutter
         uses: subosito/flutter-action@v2
@@ -126,20 +80,23 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Generate iOS project scaffolding when absent
+      - name: Verify committed Android/iOS scaffold
         shell: bash
         run: |
-          if [[ ! -d ios ]]; then
-            flutter create \
-              --platforms=ios \
-              --project-name=flutter_mobile_starter_kit \
-              --org=com.kingdart \
-              --no-pub \
-              .
-          fi
+          required_paths=(
+            android/gradlew
+            ios/Runner.xcodeproj/project.pbxproj
+            pubspec.lock
+          )
+          for path in "${required_paths[@]}"; do
+            if [[ ! -e "$path" ]]; then
+              echo "::error::Required committed scaffold file '$path' is missing. Generate platform scaffolding locally with Flutter and commit the files."
+              exit 1
+            fi
+          done
 
-      - name: Resolve dependencies
-        run: flutter pub get
+      - name: Resolve dependencies from the committed lockfile
+        run: flutter pub get --enforce-lockfile
 
       - name: Build iOS without code signing
         run: flutter build ios --no-codesign
