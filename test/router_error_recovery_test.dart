@@ -7,46 +7,45 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
-  testWidgets(
-    'unknown route offers a localized recovery action back to home',
-    (WidgetTester tester) async {
-      final _MemoryPreferencesStore store = _MemoryPreferencesStore()
-        ..value = const AppPreferences(
-          localePreference: AppLocalePreference.arabic,
-        );
-      late GoRouter router;
-
-      await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            appPreferencesStoreProvider.overrideWithValue(store),
-            initialAppPreferencesProvider.overrideWithValue(store.value),
-          ],
-          child: Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              router = ref.watch(appRouterProvider);
-              return const StarterKitApp();
-            },
-          ),
-        ),
+  testWidgets('unknown route offers a localized recovery action back to home', (
+    WidgetTester tester,
+  ) async {
+    final _MemoryPreferencesStore store = _MemoryPreferencesStore()
+      ..value = const AppPreferences(
+        localePreference: AppLocalePreference.arabic,
       );
-      await tester.pumpAndSettle();
+    late GoRouter router;
 
-      router.go('/missing-route');
-      await tester.pumpAndSettle();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          appPreferencesStoreProvider.overrideWithValue(store),
+          initialAppPreferencesProvider.overrideWithValue(store.value),
+        ],
+        child: Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            router = ref.watch(appRouterProvider);
+            return const StarterKitApp();
+          },
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
 
-      expect(find.text('الصفحة غير متاحة'), findsOneWidget);
-      expect(find.text('لم نتمكن من العثور على هذه الصفحة.'), findsOneWidget);
-      expect(find.text('العودة إلى الرئيسية'), findsOneWidget);
-      expect(find.byIcon(Icons.home_outlined), findsOneWidget);
+    router.go('/missing-route');
+    await tester.pumpAndSettle();
 
-      await tester.tap(find.text('العودة إلى الرئيسية'));
-      await tester.pumpAndSettle();
+    expect(find.text('الصفحة غير متاحة'), findsOneWidget);
+    expect(find.text('لم نتمكن من العثور على هذه الصفحة.'), findsOneWidget);
+    expect(find.text('العودة إلى الرئيسية'), findsOneWidget);
+    expect(find.byIcon(Icons.home_outlined), findsOneWidget);
 
-      expect(find.text('أساس تطبيقات الهاتف'), findsOneWidget);
-      expect(find.text('الصفحة غير متاحة'), findsNothing);
-    },
-  );
+    await tester.tap(find.text('العودة إلى الرئيسية'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('أساس تطبيقات الهاتف'), findsOneWidget);
+    expect(find.text('الصفحة غير متاحة'), findsNothing);
+  });
 }
 
 class _MemoryPreferencesStore implements AppPreferencesStore {
