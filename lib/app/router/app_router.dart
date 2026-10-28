@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/design_system/presentation/design_system_screen.dart';
 import '../../features/foundation/presentation/foundation_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 
@@ -21,6 +22,13 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
             name: 'foundation',
             builder: (BuildContext context, GoRouterState state) {
               return const FoundationScreen();
+            },
+          ),
+          GoRoute(
+            path: 'design-system',
+            name: 'design-system',
+            builder: (BuildContext context, GoRouterState state) {
+              return const DesignSystemScreen();
             },
           ),
         ],

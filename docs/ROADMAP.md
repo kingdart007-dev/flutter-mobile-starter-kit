@@ -1,6 +1,6 @@
 # Implementation roadmap
 
-Complete work in small, verifiable phases. A committed file is not proof that the application builds or behaves correctly; CI and platform checks are part of the deliverable.
+Complete work in small, verifiable phases. A committed file is not proof that the app builds or behaves correctly; CI and platform checks are part of the deliverable.
 
 ## Phase 0 — Project contract
 
@@ -8,30 +8,30 @@ Complete work in small, verifiable phases. A committed file is not proof that th
 - [x] Record engineering instructions for contributors and coding agents.
 - [x] Record architecture and design-system principles.
 - [x] Define a staged delivery plan.
-- [ ] Review the conventions against the evolving implementation and adjust only where evidence justifies it.
 
 ## Phase 1 — Runnable Flutter scaffold
 
-- [x] Establish an SDK baseline (Flutter 3.44+ / Dart 3.12+) and compatible dependency constraints.
+- [x] Establish an SDK baseline (Flutter 3.44+ / Dart 3.12+) and dependency constraints.
 - [x] Add Riverpod and go_router without Freezed or code generation.
 - [x] Add app entry point, root app shell, central theme entry point, and a minimal home screen.
-- [x] Add an example route and a second screen to exercise navigation.
-- [x] Add initial widget tests for rendering and navigation behavior.
-- [x] Add GitHub Actions workflows for format, analysis, tests, and Android/iOS build validation.
+- [x] Add example routes and initial widget tests.
+- [x] Add GitHub Actions workflows for formatting, analysis, tests, and Android/iOS build validation.
 - [ ] Run the workflow and review real output; fix all errors rather than assuming the source passes.
 - [ ] Generate and commit the official Android/iOS native platform scaffold.
-- [ ] Resolve and commit `pubspec.lock` for reproducible application dependency resolution.
+- [ ] Resolve and commit `pubspec.lock` for reproducible app dependency resolution.
 - [ ] Confirm first-checkout setup commands and build instructions on a clean environment.
 
-**Current phase status:** source and CI definitions are committed; the native project directories and lockfile remain pending. The workflow generates platform scaffolding in its temporary workspace so it can attempt platform builds without hand-written native files.
+## Phase 2 — App shell and luxury monochrome design foundation
 
-## Phase 2 — App shell and design foundation
-
-- [ ] Add semantic design tokens and theme extensions only where required.
-- [ ] Implement a user-selectable Light, Dark, and System theme mode.
-- [ ] Set typography, spacing, shape, focus, and motion conventions.
-- [ ] Add only the shared page/layout and UI components justified by repeated use.
-- [ ] Add meaningful component tests and state coverage for light and dark themes.
+- [x] Define a neutral palette with separate light/dark semantic surface roles.
+- [x] Centralize spacing, shape/radius, typography adjustments, and motion tokens.
+- [x] Add a shared scroll-safe page scaffold, a themed card surface, and a section-heading component.
+- [x] Apply a restrained card-based style to the example app and add a live design-system showcase.
+- [x] Document the style guide, reusable UI patterns, and pragmatic SOLID principles.
+- [ ] Add a persisted, user-selectable Light/Dark/System theme preference without race conditions.
+- [ ] Verify color contrast, touch targets, text scaling, and component states with tests.
+- [ ] Confirm animated transitions honor reduced-motion settings.
+- [ ] Review the design on real Android and iOS device/simulator sizes.
 
 ## Phase 3 — Localization and accessibility
 
@@ -50,12 +50,11 @@ Complete work in small, verifiable phases. A committed file is not proof that th
 
 ## Phase 5 — Quality gates
 
-- [x] Add CI on pull requests and pushes to the default branch.
+- [x] Add CI on pushes to the default branch, pull requests, and manual dispatch.
 - [ ] Confirm formatting, `flutter analyze`, and `flutter test` jobs are green.
-- [ ] Add targeted integration tests for essential app flows where widget tests are insufficient.
+- [ ] Add targeted integration tests for critical flows when widget tests are insufficient.
 - [ ] Confirm Android build in CI and iOS build on a macOS runner both pass.
-- [ ] Keep dependency changes deliberate and review licensing/platform support.
-- [ ] Confirm CI status is visible and repository checks are required before merging where supported.
+- [ ] Review dependency licensing/platform support and require CI status before merge where supported.
 
 ## Phase 6 — Hardening and release readiness
 
@@ -67,4 +66,4 @@ Complete work in small, verifiable phases. A committed file is not proof that th
 
 ## Exit criteria
 
-The starter is ready for adoption only when a clean checkout can resolve dependencies and pass formatting, static analysis, automated tests, and Android/iOS build validation; when the platform files and lockfile are committed; when docs are accurate; and when mobile, localization, and accessibility behavior has been verified rather than merely planned.
+The starter is ready for adoption only when a clean checkout can resolve dependencies and pass formatting, static analysis, automated tests, and Android/iOS build validation; when native platform files and the lockfile are committed; when docs are accurate; and when mobile, localization, and accessibility behavior has been verified rather than merely planned.

@@ -8,7 +8,9 @@ These instructions apply to every change in this repository. The objective is a 
 - Do not add web or desktop targets unless the owner explicitly changes scope.
 - Do not invent a sample business, backend, authentication flow, analytics, AI service, monetization, or brand identity.
 - English and Arabic, genuine LTR/RTL behavior, and Light/Dark/System themes are foundational requirements.
-- Avoid emojis as application icons, decorative gradients/glows, excessive elevation, and UI effects that reduce clarity or performance.
+- The visual direction is **luxury monochrome**: warm white, black/ink, graphite, nuanced greys, generous whitespace, clear type hierarchy, softly rounded cards, and fine separators.
+- Use an iOS-quality feel as inspiration for craft and interaction, but respect Android as a first-class target. Prefer platform defaults/adaptive controls before custom interaction physics.
+- Avoid emojis as app icons, decorative gradients/glows/noise, heavy elevation, clutter, and motion that does not clarify behavior.
 
 ## Engineering rules
 
@@ -25,8 +27,8 @@ These instructions apply to every change in this repository. The objective is a 
 
 ## UX and accessibility requirements
 
-- Support light, dark, and system theme modes from one centralized theme system.
-- Use shared design tokens for spacing, typography, color roles, shapes, and motion. Avoid unexplained one-off values.
+- Keep all color, spacing, radii, type, and motion decisions in one shared design system. Use semantic ColorScheme roles inside components rather than hard-coded primitive colors.
+- Support light, dark, and system theme modes; do not introduce a second theme/token mechanism.
 - Do not depend on color alone to communicate a state. Honor text scaling; avoid fixed-height text containers that clip localized content.
 - Provide meaningful semantics/labels, logical focus and reading order, adequate touch targets, clear validation and recovery, and reduced-motion behavior.
 - Use direction-aware layout primitives. Mirror only directional icons; do not mirror symbols whose meaning is not directional.
