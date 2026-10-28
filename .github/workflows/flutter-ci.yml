@@ -112,7 +112,8 @@ jobs:
 
   ios:
     name: Build iOS application
-    runs-on: macos-latest
+    # Pin the macOS image to keep the Xcode toolchain from changing implicitly.
+    runs-on: macos-15
     timeout-minutes: 40
 
     steps:
