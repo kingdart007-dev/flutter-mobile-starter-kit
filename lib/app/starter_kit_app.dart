@@ -12,8 +12,10 @@ class StarterKitApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AppPreferences? preferences =
-        ref.watch(appPreferencesProvider).asData?.value;
+    final AppPreferences? preferences = ref
+        .watch(appPreferencesProvider)
+        .asData
+        ?.value;
 
     return MaterialApp.router(
       onGenerateTitle: (BuildContext context) => AppStrings.of(context).appName,

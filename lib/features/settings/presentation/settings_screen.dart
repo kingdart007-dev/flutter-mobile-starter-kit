@@ -14,8 +14,9 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AppStrings strings = AppStrings.of(context);
-    final AsyncValue<AppPreferences> preferenceState =
-        ref.watch(appPreferencesProvider);
+    final AsyncValue<AppPreferences> preferenceState = ref.watch(
+      appPreferencesProvider,
+    );
 
     return Scaffold(
       appBar: AppBar(title: Text(strings.settingsTitle)),

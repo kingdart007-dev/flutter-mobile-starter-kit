@@ -8,10 +8,10 @@ enum AppLocalePreference {
   arabic;
 
   Locale? get locale => switch (this) {
-        AppLocalePreference.system => null,
-        AppLocalePreference.english => const Locale('en'),
-        AppLocalePreference.arabic => const Locale('ar'),
-      };
+    AppLocalePreference.system => null,
+    AppLocalePreference.english => const Locale('en'),
+    AppLocalePreference.arabic => const Locale('ar'),
+  };
 
   static AppLocalePreference fromStorage(String? value) {
     return AppLocalePreference.values.firstWhere(
@@ -90,8 +90,8 @@ class SharedAppPreferencesStore implements AppPreferencesStore {
 
 final Provider<AppPreferencesStore> appPreferencesStoreProvider =
     Provider<AppPreferencesStore>((ref) {
-  return SharedAppPreferencesStore(SharedPreferencesAsync());
-});
+      return SharedAppPreferencesStore(SharedPreferencesAsync());
+    });
 
 /// Seeded by main() before the first frame so saved preferences don't visibly
 /// flash from the system default to the persisted choice at startup.
@@ -99,10 +99,10 @@ final Provider<AppPreferences> initialAppPreferencesProvider =
     Provider<AppPreferences>((ref) => const AppPreferences());
 
 final AsyncNotifierProvider<AppPreferencesController, AppPreferences>
-    appPreferencesProvider =
+appPreferencesProvider =
     AsyncNotifierProvider<AppPreferencesController, AppPreferences>(
-  AppPreferencesController.new,
-);
+      AppPreferencesController.new,
+    );
 
 class AppPreferencesController extends AsyncNotifier<AppPreferences> {
   @override

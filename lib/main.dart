@@ -8,8 +8,9 @@ import 'app/starter_kit_app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final SharedAppPreferencesStore preferencesStore =
-      SharedAppPreferencesStore(SharedPreferencesAsync());
+  final SharedAppPreferencesStore preferencesStore = SharedAppPreferencesStore(
+    SharedPreferencesAsync(),
+  );
 
   AppPreferences initialPreferences;
   try {

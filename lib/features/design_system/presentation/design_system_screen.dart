@@ -115,7 +115,10 @@ class DesignSystemScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(strings.standardCard, style: theme.textTheme.titleMedium),
+                  Text(
+                    strings.standardCard,
+                    style: theme.textTheme.titleMedium,
+                  ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
                     strings.cardDescription,
@@ -207,10 +210,7 @@ class DesignSystemScreen extends StatelessWidget {
 }
 
 class _ShowcaseHeading extends StatelessWidget {
-  const _ShowcaseHeading({
-    required this.title,
-    required this.description,
-  });
+  const _ShowcaseHeading({required this.title, required this.description});
 
   final String title;
   final String description;
@@ -312,10 +312,7 @@ class _SpacingSample extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 32,
-          child: Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+          child: Text(label, style: Theme.of(context).textTheme.labelMedium),
         ),
         Container(
           height: 12,
