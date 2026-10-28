@@ -130,8 +130,13 @@ void main() {
     expect(tester.getSize(find.text(longTitle)).height, greaterThan(48));
   });
 
-  test('semantic text and primary-action colors meet text contrast targets', () {
-    for (final ThemeData theme in <ThemeData>[AppTheme.light, AppTheme.dark]) {
+  test(
+    'semantic text and primary-action colors meet text contrast targets',
+    () {
+      for (final ThemeData theme in <ThemeData>[
+        AppTheme.light,
+        AppTheme.dark,
+      ]) {
       final ColorScheme colors = theme.colorScheme;
 
       expect(
