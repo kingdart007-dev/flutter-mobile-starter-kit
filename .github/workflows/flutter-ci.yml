@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up stable Flutter
         uses: subosito/flutter-action@v2
@@ -56,16 +56,17 @@ jobs:
       - name: Resolve dependencies
         run: flutter pub get
 
-      # The initial main-branch bootstrap normalizes source before its first
-      # validation. Pull requests always use the strict format gate below.
-      - name: Format the initial main-branch scaffold
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.scaffold.outputs.needed == 'true'
+      # Direct-to-main maintenance commits are formatted before strict checks.
+      # Pull requests still fail if formatting is needed, so proposed changes
+      # must arrive already formatted and reviewable.
+      - name: Format Dart code on main branch pushes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: dart format lib test
 
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed lib test
 
-      # This is diagnostic-only. It never weakens or bypasses the CI gates.
+      # Diagnostic-only. This never weakens or bypasses a quality gate.
       - name: Export generated scaffold for remediation
         if: failure()
         shell: bash
@@ -92,21 +93,21 @@ jobs:
       - name: Build Android debug APK
         run: flutter build apk --debug
 
-      # One-time bootstrap only: commit Flutter CLI-generated platform projects,
-      # the resolved app lockfile, and any formatting changes after the same
-      # workspace has passed analysis, tests, and the Android debug build.
-      - name: Commit validated native scaffold
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.scaffold.outputs.needed == 'true'
+      # Commit only outputs validated in this exact workspace. On pull requests
+      # this step never writes; it also does nothing if pub get/format made no
+      # changes. The bootstrap scaffold is committed using the same mechanism.
+      - name: Commit validated scaffold, formatting, and lockfile
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add android ios pubspec.yaml pubspec.lock analysis_options.yaml lib test
           if git diff --cached --quiet; then
-            echo "No generated scaffold changes to commit."
+            echo "No formatted source, lockfile, or scaffold changes to commit."
             exit 0
           fi
-          git commit -m "chore: add validated Android and iOS scaffold"
+          git commit -m "chore: sync validated Flutter scaffold"
           git push origin HEAD:main
 
   ios:
@@ -116,7 +117,7 @@ jobs:
 
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up stable Flutter
         uses: subosito/flutter-action@v2
