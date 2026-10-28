@@ -98,13 +98,15 @@ final Provider<AppPreferencesStore> appPreferencesStoreProvider =
 final Provider<AppPreferences> initialAppPreferencesProvider =
     Provider<AppPreferences>((ref) => const AppPreferences());
 
-final AsyncNotifierProvider<AppPreferencesController, AppPreferences>
+final NotifierProvider<AppPreferencesController, AppPreferences>
 appPreferencesProvider =
-    AsyncNotifierProvider<AppPreferencesController, AppPreferences>(
+    NotifierProvider<AppPreferencesController, AppPreferences>(
       AppPreferencesController.new,
     );
 
-class AppPreferencesController extends AsyncNotifier<AppPreferences> {
+/// UI preferences are initialized synchronously from the startup snapshot.
+/// Persistence remains asynchronous and isolated behind [AppPreferencesStore].
+class AppPreferencesController extends Notifier<AppPreferences> {
   @override
   AppPreferences build() {
     return ref.watch(initialAppPreferencesProvider);
@@ -128,23 +130,20 @@ class AppPreferencesController extends AsyncNotifier<AppPreferences> {
     AppPreferences Function(AppPreferences current) update,
     Future<void> Function(AppPreferencesStore store) persist,
   ) async {
-    final AppPreferences? current = state.asData?.value;
-    if (current == null || current.isSaving) {
+    final AppPreferences current = state;
+    if (current.isSaving) {
       return;
     }
 
     // Apply immediately while serializing writes. Roll back if native storage
     // reports a failure so the UI never claims a preference was saved.
-    state = AsyncData(update(current).copyWith(isSaving: true));
+    state = update(current).copyWith(isSaving: true);
 
     try {
       await persist(ref.read(appPreferencesStoreProvider));
-      final AppPreferences? latest = state.asData?.value;
-      if (latest != null) {
-        state = AsyncData(latest.copyWith(isSaving: false));
-      }
+      state = state.copyWith(isSaving: false);
     } catch (_) {
-      state = AsyncData(current);
+      state = current;
       rethrow;
     }
   }

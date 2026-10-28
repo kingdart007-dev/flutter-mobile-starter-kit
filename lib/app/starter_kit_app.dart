@@ -12,18 +12,15 @@ class StarterKitApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AppPreferences? preferences = ref
-        .watch(appPreferencesProvider)
-        .asData
-        ?.value;
+    final AppPreferences preferences = ref.watch(appPreferencesProvider);
 
     return MaterialApp.router(
       onGenerateTitle: (BuildContext context) => AppStrings.of(context).appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      themeMode: preferences?.themeMode ?? ThemeMode.system,
-      locale: preferences?.localePreference.locale,
+      themeMode: preferences.themeMode,
+      locale: preferences.localePreference.locale,
       supportedLocales: AppStrings.supportedLocales,
       localizationsDelegates: <LocalizationsDelegate<dynamic>>[
         AppStrings.delegate,

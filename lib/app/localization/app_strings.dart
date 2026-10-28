@@ -52,6 +52,7 @@ class AppStrings {
     'We could not find that page.',
     'لم نتمكن من العثور على هذه الصفحة.',
   );
+  String get goHome => _text('Go to home', 'العودة إلى الرئيسية');
 
   String get homeEyebrow =>
       _text('FLUTTER · ANDROID + IOS', 'FLUTTER · أندرويد + iOS');
