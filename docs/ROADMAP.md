@@ -47,8 +47,9 @@ Complete work in small, verifiable phases. A committed file is not proof that th
 ## Phase 4 — Navigation and common UX states
 
 - [x] Add centralized go_router route configuration.
-- [ ] Verify Android system back and iOS navigation behavior on devices/simulators.
-- [ ] Exercise nested routes, dialogs/sheets, and state preservation before adding complexity.
+- [x] Add widget regression tests for system-back route-stack unwinding and locale/direction preservation.
+- [ ] Verify Android system back and iOS edge-swipe navigation behavior on devices/simulators.
+- [ ] Exercise dialogs/sheets and other state-preservation cases before adding complexity.
 - [x] Add reusable, theme-aware loading, empty, and error/retry state widgets with localized caller-provided copy.
 - [ ] Define validation and feedback patterns where genuinely needed.
 - [ ] Document navigation and state-preservation conventions.

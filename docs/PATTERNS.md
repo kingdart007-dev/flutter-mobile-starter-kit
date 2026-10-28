@@ -36,6 +36,13 @@ Use Riverpod's asynchronous provider state where it fits rather than maintaining
 - Keep dialogs/sheets and their dismissal behavior explicit. Preserve form or nested navigation state when the task warrants it.
 - Add deep links and nested shell navigation when a product requirement actually exists, not by default.
 
+### Back-navigation behavior
+
+- Let go_router and Flutter's Navigator manage the active route stack; avoid custom back interception unless a concrete flow requires it.
+- A back action should remove only the current route and reveal the previous route, including when one secondary screen opens another.
+- Keep durable UI preferences outside route-local widget state so they survive route changes.
+- Cover route-stack unwinding and locale/direction preservation with widget tests. Real Android system-back and iOS edge-swipe behavior still requires simulator/device verification.
+
 ## Forms and validation
 
 - Give fields persistent labels when context isn't obvious; don't rely on placeholders as the only label.
