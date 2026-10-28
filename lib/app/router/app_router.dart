@@ -6,6 +6,7 @@ import '../../features/design_system/presentation/design_system_screen.dart';
 import '../../features/foundation/presentation/foundation_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../shared/ui/app_status_state.dart';
 import '../localization/app_strings.dart';
 
 final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
@@ -46,12 +47,12 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
     errorBuilder: (BuildContext context, GoRouterState state) {
       final AppStrings strings = AppStrings.of(context);
       return Scaffold(
-        appBar: AppBar(title: Text(strings.pageUnavailable)),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Text(strings.pageUnavailableMessage),
-          ),
+        body: AppErrorState(
+          title: strings.pageUnavailable,
+          message: strings.pageUnavailableMessage,
+          actionLabel: strings.goHome,
+          actionIcon: Icons.home_outlined,
+          onAction: () => context.goNamed('home'),
         ),
       );
     },

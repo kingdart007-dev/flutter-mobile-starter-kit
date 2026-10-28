@@ -64,9 +64,10 @@ Use Riverpod's asynchronous provider state where it fits rather than maintaining
 
 - Use `AppLoadingState` while an operation is pending; provide a localized message and let the feature own the operation.
 - Use `AppEmptyState` when a feature has no content to show, not when a request failed.
-- Use `AppErrorState` for a user-safe failure message and add a retry action only when retry is useful.
+- Use `AppErrorState` for a user-safe failure message and provide a meaningful recovery action, such as retrying or returning to a safe route.
 - Supply localized title, message, and action labels from the owning feature; these widgets do not own product wording or data logic.
 - Keep raw exceptions, stack traces, internal URLs, and sensitive details out of the message.
+- Unknown routes should provide a clear way back to a safe destination instead of leaving users at a dead end.
 - Status widgets follow the shared theme, support text scaling and RTL through Flutter layout, and expose loading/error announcements semantically.
 
 Implementation: `lib/shared/ui/app_status_state.dart`.

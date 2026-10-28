@@ -101,15 +101,17 @@ class AppErrorState extends StatelessWidget {
   const AppErrorState({
     required this.title,
     required this.message,
-    this.retryLabel,
-    this.onRetry,
+    this.actionLabel,
+    this.onAction,
+    this.actionIcon = Icons.refresh,
     super.key,
-  }) : assert((retryLabel == null) == (onRetry == null));
+  }) : assert((actionLabel == null) == (onAction == null));
 
   final String title;
   final String message;
-  final String? retryLabel;
-  final VoidCallback? onRetry;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+  final IconData actionIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +119,9 @@ class AppErrorState extends StatelessWidget {
       icon: Icons.error_outline,
       title: title,
       message: message,
-      actionLabel: retryLabel,
-      onAction: onRetry,
-      actionIcon: Icons.refresh,
+      actionLabel: actionLabel,
+      onAction: onAction,
+      actionIcon: actionIcon,
       liveRegion: true,
     );
   }

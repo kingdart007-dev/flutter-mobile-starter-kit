@@ -116,8 +116,8 @@ void main() {
             body: AppErrorState(
               title: 'تعذر تحميل المحتوى',
               message: 'تحقق من الاتصال ثم حاول مرة أخرى.',
-              retryLabel: 'إعادة المحاولة',
-              onRetry: () => retryCalled = true,
+              actionLabel: 'إعادة المحاولة',
+              onAction: () => retryCalled = true,
             ),
           ),
         ),

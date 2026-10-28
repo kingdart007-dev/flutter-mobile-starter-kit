@@ -52,7 +52,8 @@ Complete work in small, verifiable phases. A committed file is not proof that th
 - [ ] Exercise dialogs/sheets and other state-preservation cases before adding complexity.
 - [x] Add reusable, theme-aware loading, empty, and error/retry state widgets with localized caller-provided copy.
 - [ ] Define validation and feedback patterns where genuinely needed.
-- [ ] Document navigation and state-preservation conventions.
+- [x] Document navigation and state-preservation conventions.
+- [x] Add a localized, recoverable router error state for unknown routes.
 
 ## Phase 5 — Quality gates
 
