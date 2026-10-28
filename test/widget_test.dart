@@ -105,6 +105,40 @@ void main() {
       );
       expect(app.locale, const Locale('ar'));
       expect(store.value.localePreference, AppLocalePreference.arabic);
+
+      final Directionality directionality = tester.widget<Directionality>(
+        find
+            .ancestor(
+              of: find.text('التفضيلات'),
+              matching: find.byType(Directionality),
+            )
+            .first,
+      );
+      expect(directionality.textDirection, TextDirection.rtl);
+    });
+
+    testWidgets('rolls back the interface when saving a preference fails', (
+      WidgetTester tester,
+    ) async {
+      store.failWrites = true;
+      await tester.pumpWidget(buildTestApp());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byTooltip('App preferences'));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Dark'));
+      await tester.tap(find.text('Dark'));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text('Your change could not be saved. Please try again.'),
+        findsOneWidget,
+      );
+      final MaterialApp app = tester.widget<MaterialApp>(
+        find.byType(MaterialApp),
+      );
+      expect(app.themeMode, ThemeMode.system);
+      expect(store.value.themeMode, ThemeMode.system);
     });
   });
 
@@ -125,17 +159,24 @@ void main() {
 
 class _MemoryPreferencesStore implements AppPreferencesStore {
   AppPreferences value = const AppPreferences();
+  bool failWrites = false;
 
   @override
   Future<AppPreferences> load() async => value;
 
   @override
   Future<void> saveThemeMode(ThemeMode mode) async {
+    if (failWrites) {
+      throw StateError('Simulated storage failure');
+    }
     value = value.copyWith(themeMode: mode);
   }
 
   @override
   Future<void> saveLocalePreference(AppLocalePreference preference) async {
+    if (failWrites) {
+      throw StateError('Simulated storage failure');
+    }
     value = value.copyWith(localePreference: preference);
   }
 }
