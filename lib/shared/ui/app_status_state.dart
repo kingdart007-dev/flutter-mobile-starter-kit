@@ -3,6 +3,65 @@ import 'package:flutter/material.dart';
 import '../../app/theme/app_radii.dart';
 import '../../app/theme/app_spacing.dart';
 
+/// A compact loading state with accessible, caller-provided progress text.
+///
+/// Keep the message localized in the feature that owns the operation. This
+/// widget presents progress but does not own the operation or its retry logic.
+class AppLoadingState extends StatelessWidget {
+  const AppLoadingState({required this.message, super.key});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colors = theme.colorScheme;
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.xl),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 420),
+          child: Semantics(
+            container: true,
+            liveRegion: true,
+            label: message,
+            child: ExcludeSemantics(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: colors.surfaceContainerLow,
+                      borderRadius: BorderRadius.circular(AppRadii.panel),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(AppSpacing.md),
+                      child: SizedBox.square(
+                        dimension: 28,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colors.onSurfaceVariant,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// A calm empty state with an optional, clearly labeled next action.
 ///
 /// Pass localized strings from the owning feature. The component intentionally

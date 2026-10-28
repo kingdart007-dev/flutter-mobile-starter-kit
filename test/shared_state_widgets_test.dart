@@ -5,6 +5,35 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets(
+    'loading state exposes its message and progress semantics',
+    (WidgetTester tester) async {
+      const String message = 'Loading your content…';
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: const Scaffold(
+            body: AppLoadingState(message: message),
+          ),
+        ),
+      );
+
+      expect(find.text(message), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (Widget widget) =>
+              widget is Semantics &&
+              widget.label == message &&
+              widget.liveRegion,
+        ),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
     'empty state explains the situation without inventing an action',
     (WidgetTester tester) async {
       await tester.pumpWidget(

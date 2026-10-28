@@ -53,13 +53,14 @@ Use Riverpod's asynchronous provider state where it fits rather than maintaining
 - Disabled: explain why when the reason is not obvious.
 - Avoid decorative skeletons, fake progress, or controls with no meaningful outcome.
 
-### Shared empty and error widgets
+### Shared loading, empty, and error widgets
 
+- Use `AppLoadingState` while an operation is pending; provide a localized message and let the feature own the operation.
 - Use `AppEmptyState` when a feature has no content to show, not when a request failed.
 - Use `AppErrorState` for a user-safe failure message and add a retry action only when retry is useful.
-- Supply localized title, message, and action labels from the owning feature; neither widget owns product wording or data logic.
+- Supply localized title, message, and action labels from the owning feature; these widgets do not own product wording or data logic.
 - Keep raw exceptions, stack traces, internal URLs, and sensitive details out of the message.
-- Both widgets follow the shared theme, support text scaling and RTL through Flutter layout, and omit the action when no callback is supplied.
+- Status widgets follow the shared theme, support text scaling and RTL through Flutter layout, and expose loading/error announcements semantically.
 
 Implementation: `lib/shared/ui/app_status_state.dart`.
 

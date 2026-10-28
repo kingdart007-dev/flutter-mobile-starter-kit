@@ -49,8 +49,8 @@ Complete work in small, verifiable phases. A committed file is not proof that th
 - [x] Add centralized go_router route configuration.
 - [ ] Verify Android system back and iOS navigation behavior on devices/simulators.
 - [ ] Exercise nested routes, dialogs/sheets, and state preservation before adding complexity.
-- [x] Add reusable, theme-aware empty and error/retry state widgets with localized caller-provided copy.
-- [ ] Define loading, validation, and feedback patterns where genuinely needed.
+- [x] Add reusable, theme-aware loading, empty, and error/retry state widgets with localized caller-provided copy.
+- [ ] Define validation and feedback patterns where genuinely needed.
 - [ ] Document navigation and state-preservation conventions.
 
 ## Phase 5 — Quality gates
