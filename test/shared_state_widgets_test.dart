@@ -4,9 +4,9 @@ import 'package:flutter_mobile_starter_kit/shared/ui/app_status_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('empty state explains the situation without inventing an action', (
-    WidgetTester tester,
-  ) async {
+  testWidgets(
+    'empty state explains the situation without inventing an action',
+    (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.light,
@@ -24,7 +24,7 @@ void main() {
     expect(find.byIcon(Icons.inbox_outlined), findsOneWidget);
     expect(find.byType(FilledButton), findsNothing);
     expect(tester.takeException(), isNull);
-  });
+  );
 
   testWidgets('empty state runs its supplied primary action', (
     WidgetTester tester,
