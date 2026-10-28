@@ -36,13 +36,13 @@ jobs:
         shell: bash
         run: |
           required_paths=(
-            android/gradlew
+            android/settings.gradle.kts
             ios/Runner.xcodeproj/project.pbxproj
             pubspec.lock
           )
           for path in "${required_paths[@]}"; do
             if [[ ! -e "$path" ]]; then
-              echo "::error::Required committed scaffold file '$path' is missing. Generate platform scaffolding locally with Flutter and commit the files."
+              echo "::error::Required committed project file '$path' is missing. Restore the Flutter scaffold and commit the file."
               exit 1
             fi
           done
@@ -84,13 +84,13 @@ jobs:
         shell: bash
         run: |
           required_paths=(
-            android/gradlew
+            android/settings.gradle.kts
             ios/Runner.xcodeproj/project.pbxproj
             pubspec.lock
           )
           for path in "${required_paths[@]}"; do
             if [[ ! -e "$path" ]]; then
-              echo "::error::Required committed scaffold file '$path' is missing. Generate platform scaffolding locally with Flutter and commit the files."
+              echo "::error::Required committed project file '$path' is missing. Restore the Flutter scaffold and commit the file."
               exit 1
             fi
           done
