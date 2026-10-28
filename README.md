@@ -4,7 +4,7 @@ A product-neutral foundation for thoughtful, maintainable Flutter applications f
 
 The aim is a starter that feels idiomatic to Flutter and Dart developers: intentionally small, well-structured, accessible, tested, and easy to adapt—not a generic framework full of unnecessary abstractions.
 
-> **Status: early foundation with a verified Android scaffold.** The official Flutter-generated Android/iOS project files and dependency lockfile are committed. The first scaffold passed formatting, analysis, widget tests, and an Android debug build on GitHub Actions. The iOS job was cancelled during bootstrap and must be rerun. Current work adds persisted theme/language preferences and handwritten English/Arabic localization; those changes still need CI validation.
+> **Status: early foundation; not release-ready.** The official Flutter-generated Android/iOS project files and dependency lockfile are committed. The foundation includes persisted appearance and language preferences, handwritten English/Arabic localization, accessible shared loading/empty/error states, and tested route recovery/back-stack behavior. CI checks formatting, static analysis, widget tests, an Android debug build, and an iOS no-code-sign build. Release readiness still requires successful validation on both platforms and real-device accessibility/navigation review.
 
 ## Design direction
 
@@ -45,12 +45,20 @@ lib/
     starter_kit_app.dart
   shared/
     ui/
+      app_card.dart
+      app_page.dart
+      app_section_header.dart
+      app_status_state.dart
   features/
     home/presentation/
     settings/presentation/
     design_system/presentation/
     foundation/presentation/
 test/
+  accessibility_test.dart
+  app_navigation_test.dart
+  router_error_recovery_test.dart
+  shared_state_widgets_test.dart
   widget_test.dart
 docs/
   ARCHITECTURE.md
@@ -82,10 +90,10 @@ The official native project files and `pubspec.lock` are now checked in. From th
 flutter pub get
 dart format --output=none --set-exit-if-changed lib test
 flutter analyze --fatal-infos
-flutter test
+flutter test --coverage
 ```
 
-To launch on a connected Android device/emulator, run `flutter run`. iOS builds require macOS and Xcode. See [the CI workflow](.github/workflows/flutter-ci.yml) for the platform validation commands.
+To launch on a connected Android device/emulator, run `flutter run`. For a local Android build, run `flutter build apk --debug`. An iOS build requires macOS and Xcode; run `flutter build ios --no-codesign` on that platform. See [the CI workflow](.github/workflows/flutter-ci.yml) for the canonical validation commands.
 
 ## Official references
 
