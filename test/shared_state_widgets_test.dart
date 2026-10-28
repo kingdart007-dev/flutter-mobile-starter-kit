@@ -7,23 +7,24 @@ void main() {
   testWidgets(
     'empty state explains the situation without inventing an action',
     (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        theme: AppTheme.light,
-        home: const Scaffold(
-          body: AppEmptyState(
-            title: 'Nothing saved yet',
-            message: 'Saved items will appear here.',
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: const Scaffold(
+            body: AppEmptyState(
+              title: 'Nothing saved yet',
+              message: 'Saved items will appear here.',
+            ),
           ),
         ),
-      ),
-    );
+      );
 
-    expect(find.text('Nothing saved yet'), findsOneWidget);
-    expect(find.text('Saved items will appear here.'), findsOneWidget);
-    expect(find.byIcon(Icons.inbox_outlined), findsOneWidget);
-    expect(find.byType(FilledButton), findsNothing);
-    expect(tester.takeException(), isNull);
+      expect(find.text('Nothing saved yet'), findsOneWidget);
+      expect(find.text('Saved items will appear here.'), findsOneWidget);
+      expect(find.byIcon(Icons.inbox_outlined), findsOneWidget);
+      expect(find.byType(FilledButton), findsNothing);
+      expect(tester.takeException(), isNull);
+    },
   );
 
   testWidgets('empty state runs its supplied primary action', (
