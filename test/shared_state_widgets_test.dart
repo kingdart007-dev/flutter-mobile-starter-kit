@@ -21,7 +21,9 @@ void main() {
     expect(
       find.byWidgetPredicate(
         (Widget widget) =>
-            widget is Semantics && widget.label == message && widget.liveRegion,
+            widget is Semantics &&
+            widget.properties.label == message &&
+            widget.properties.liveRegion == true,
       ),
       findsOneWidget,
     );
