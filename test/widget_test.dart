@@ -95,8 +95,8 @@ void main() {
 
       await tester.tap(find.byTooltip('App preferences'));
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.text('العربية'));
-      await tester.tap(find.text('العربية'));
+      await tester.ensureVisible(find.text('Arabic'));
+      await tester.tap(find.text('Arabic'));
       await tester.pumpAndSettle();
 
       expect(find.text('التفضيلات'), findsOneWidget);
