@@ -65,14 +65,8 @@ void main() {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                FilledButton(
-                  onPressed: () {},
-                  child: const Text('Continue'),
-                ),
-                OutlinedButton(
-                  onPressed: () {},
-                  child: const Text('Cancel'),
-                ),
+                FilledButton(onPressed: () {}, child: const Text('Continue')),
+                OutlinedButton(onPressed: () {}, child: const Text('Cancel')),
                 IconButton(
                   tooltip: 'More options',
                   onPressed: () {},
