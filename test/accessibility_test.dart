@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_starter_kit/app/theme/app_motion.dart';
 import 'package:flutter_mobile_starter_kit/app/theme/app_theme.dart';
+import 'package:flutter_mobile_starter_kit/shared/ui/app_page.dart';
+import 'package:flutter_mobile_starter_kit/shared/ui/app_section_header.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -109,13 +111,13 @@ void main() {
         home: Scaffold(
           body: MediaQuery(
             data: const MediaQueryData(textScaler: TextScaler.linear(2)),
-            child: const SingleChildScrollView(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(longTitle, style: TextStyle(fontSize: 24)),
-                ],
+            child: AppPage(
+              child: AppSectionHeader(
+                eyebrow: 'DESIGN PRINCIPLES',
+                title: longTitle,
+                description:
+                    'A longer explanation helps confirm that page content '
+                    'remains readable when text is enlarged.',
               ),
             ),
           ),
