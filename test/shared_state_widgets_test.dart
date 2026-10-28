@@ -67,8 +67,6 @@ void main() {
               body: AppErrorState(
                 title: 'تعذر تحميل المحتوى',
                 message: 'تحقق من الاتصال ثم حاول مرة أخرى.',
-                retryLabel: 'إعادة المحاولة',
-                onRetry: null,
               ),
             ),
           ),
