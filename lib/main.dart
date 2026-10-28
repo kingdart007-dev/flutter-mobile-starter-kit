@@ -22,7 +22,7 @@ Future<void> main() async {
 
   runApp(
     ProviderScope(
-      overrides: <Override>[
+      overrides: [
         appPreferencesStoreProvider.overrideWithValue(preferencesStore),
         initialAppPreferencesProvider.overrideWithValue(initialPreferences),
       ],

@@ -51,9 +51,9 @@ class SettingsScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               AppSectionHeader(
-                eyebrow: strings.settingsTitle.toUpperCase(),
-                title: strings.settingsTitle,
-                description: strings.themePreferenceDescription,
+                eyebrow: strings.settingsEyebrow,
+                title: strings.settingsHeadline,
+                description: strings.settingsDescription,
               ),
               const SizedBox(height: AppSpacing.xl),
               AppCard(

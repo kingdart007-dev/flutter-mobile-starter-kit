@@ -40,6 +40,12 @@ class AppStrings {
   String get designSystemTitle => _text('Design system', 'نظام التصميم');
   String get foundationTitle => _text('Engineering principles', 'مبادئ الهندسة');
   String get settingsTitle => _text('Preferences', 'التفضيلات');
+  String get settingsEyebrow => _text('PERSONALIZE', 'تخصيص');
+  String get settingsHeadline => _text('Make it yours.', 'اجعلها تناسبك.');
+  String get settingsDescription => _text(
+        'A few thoughtful choices for how the app looks and reads.',
+        'خيارات بسيطة ومدروسة لمظهر التطبيق وطريقة عرضه.',
+      );
   String get settingsTooltip => _text('App preferences', 'تفضيلات التطبيق');
   String get designSystemTooltip => _text('Explore the design system', 'استكشف نظام التصميم');
   String get pageUnavailable => _text('Page unavailable', 'الصفحة غير متاحة');

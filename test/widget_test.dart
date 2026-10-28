@@ -16,7 +16,7 @@ void main() {
 
   Widget buildTestApp() {
     return ProviderScope(
-      overrides: <Override>[
+      overrides: [
         appPreferencesStoreProvider.overrideWithValue(store),
         initialAppPreferencesProvider.overrideWithValue(store.value),
       ],
@@ -121,4 +121,21 @@ void main() {
       expect(AppStrings.supportedLocales, contains(const Locale('ar')));
     });
   });
+}
+
+class _MemoryPreferencesStore implements AppPreferencesStore {
+  AppPreferences value = const AppPreferences();
+
+  @override
+  Future<AppPreferences> load() async => value;
+
+  @override
+  Future<void> saveThemeMode(ThemeMode mode) async {
+    value = value.copyWith(themeMode: mode);
+  }
+
+  @override
+  Future<void> saveLocalePreference(AppLocalePreference preference) async {
+    value = value.copyWith(localePreference: preference);
+  }
 }

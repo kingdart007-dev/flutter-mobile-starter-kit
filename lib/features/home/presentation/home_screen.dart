@@ -226,8 +226,9 @@ class _DestinationRow extends StatelessWidget {
         ),
         const SizedBox(width: AppSpacing.sm),
         Icon(
-          Icons.arrow_forward_ios_rounded,
-          matchTextDirection: true,
+          Directionality.of(context) == TextDirection.rtl
+              ? Icons.arrow_back_ios_new_rounded
+              : Icons.arrow_forward_ios_rounded,
           size: 16,
           color: colors.onSurfaceVariant,
         ),
