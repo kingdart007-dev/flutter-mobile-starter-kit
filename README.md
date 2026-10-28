@@ -4,7 +4,7 @@ A product-neutral foundation for thoughtful, maintainable Flutter applications f
 
 The aim is a starter that feels idiomatic to Flutter and Dart developers: intentionally small, well-structured, accessible, tested, and easy to adapt—not a generic framework full of unnecessary abstractions.
 
-> **Status: early foundation.** The repository has a minimal Flutter app source shell, initial widget tests, monochrome design tokens, shared UI primitives, a live design-system showcase, architecture guidance, and CI definitions. Native platform files, a committed dependency lockfile, verified CI results, localization, and broader accessibility validation remain outstanding. This is not yet a release-ready starter.
+> **Status: early foundation with a verified Android scaffold.** The official Flutter-generated Android/iOS project files and dependency lockfile are committed. The first scaffold passed formatting, analysis, widget tests, and an Android debug build on GitHub Actions. The iOS job was cancelled during bootstrap and must be rerun. Current work adds persisted theme/language preferences and handwritten English/Arabic localization; those changes still need CI validation.
 
 ## Design direction
 
@@ -23,12 +23,13 @@ The aim is a starter that feels idiomatic to Flutter and Dart developers: intent
 
 ## Stack
 
-The dependency baseline currently targets Flutter 3.44+ / Dart 3.12+ and declares Riverpod 3.4.x and go_router 18.1.x. Package metadata indicates the chosen routing release requires Dart 3.12 / Flutter 3.44 or newer; successful CI and a committed lockfile are still required to confirm full resolution.
+The project targets Flutter 3.44+ / Dart 3.12+ and declares Riverpod 3.4.x, go_router 18.1.x, and shared_preferences 2.5.x. The committed lockfile pins the currently resolved transitive dependency graph. Update dependencies deliberately and validate the result through CI.
 
 - Flutter and Dart
 - Riverpod without code generation
 - go_router without route generation
-- Handwritten state/models where needed
+- shared_preferences async API for non-critical local UI preferences
+- Handwritten English/Arabic application strings without generated localization code
 - Flutter tests and GitHub Actions
 
 ## Source structure
@@ -37,13 +38,16 @@ The dependency baseline currently targets Flutter 3.44+ / Dart 3.12+ and declare
 lib/
   main.dart
   app/
-    starter_kit_app.dart
+    localization/
+    preferences/
     router/
     theme/
+    starter_kit_app.dart
   shared/
     ui/
   features/
     home/presentation/
+    settings/presentation/
     design_system/presentation/
     foundation/presentation/
 test/
@@ -51,6 +55,7 @@ test/
 docs/
   ARCHITECTURE.md
   DESIGN_SYSTEM.md
+  LOCALIZATION.md
   PATTERNS.md
   SOLID.md
   ROADMAP.md
@@ -62,6 +67,7 @@ AGENTS.md
 - [Contributor and coding-agent rules](AGENTS.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Design system and style guide](docs/DESIGN_SYSTEM.md)
+- [Localization conventions](docs/LOCALIZATION.md)
 - [UI, UX, and engineering patterns](docs/PATTERNS.md)
 - [Pragmatic SOLID principles](docs/SOLID.md)
 - [Implementation roadmap](docs/ROADMAP.md)
@@ -70,14 +76,22 @@ AGENTS.md
 
 Install Flutter stable and confirm `flutter doctor` is healthy. Android builds require the Android SDK; iOS builds require macOS and Xcode.
 
-Native `android/` and `ios/` directories and `pubspec.lock` have not yet been committed, so the repository is still being scaffolded. The temporary CI workflow attempts to generate native scaffolding with Flutter's own CLI. Once the platform files and lockfile are generated, committed, and validated, this section will be finalized for clean-checkout use.
+The official native project files and `pubspec.lock` are now checked in. From the repository root:
+
+```sh
+flutter pub get
+dart format --output=none --set-exit-if-changed lib test
+flutter analyze --fatal-infos
+flutter test
+```
+
+To launch on a connected Android device/emulator, run `flutter run`. iOS builds require macOS and Xcode. See [the CI workflow](.github/workflows/flutter-ci.yml) for the platform validation commands.
 
 ## Official references
 
-- [Flutter release notes](https://docs.flutter.dev/release/release-notes)
 - [Flutter app architecture guide](https://docs.flutter.dev/app-architecture/guide)
 - [Flutter architecture recommendations](https://docs.flutter.dev/app-architecture/recommendations)
 - [Effective Dart](https://dart.dev/effective-dart)
 - [Flutter testing overview](https://docs.flutter.dev/testing/overview)
-- [Flutter Cupertino design](https://docs.flutter.dev/ui/design/cupertino)
+- [Flutter internationalization](https://docs.flutter.dev/ui/internationalization)
 - [Flutter accessibility](https://docs.flutter.dev/ui/accessibility)

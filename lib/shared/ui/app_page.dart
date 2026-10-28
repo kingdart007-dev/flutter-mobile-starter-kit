@@ -9,7 +9,7 @@ import '../../app/theme/app_spacing.dart';
 class AppPage extends StatelessWidget {
   const AppPage({
     required this.child,
-    this.padding = const EdgeInsets.fromLTRB(
+    this.padding = const EdgeInsetsDirectional.fromSTEB(
       AppSpacing.lg,
       AppSpacing.xl,
       AppSpacing.lg,

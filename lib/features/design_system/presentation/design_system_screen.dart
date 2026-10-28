@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/localization/app_strings.dart';
 import '../../../app/theme/app_palette.dart';
 import '../../../app/theme/app_radii.dart';
 import '../../../app/theme/app_spacing.dart';
@@ -13,53 +14,51 @@ class DesignSystemScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStrings strings = AppStrings.of(context);
     final ThemeData theme = Theme.of(context);
     final ColorScheme colors = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Design system')),
+      appBar: AppBar(title: Text(strings.designSystemTitle)),
       body: AppPage(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const AppSectionHeader(
-              eyebrow: 'STYLE GUIDE · 01',
-              title: 'The visual language.',
-              description:
-                  'Luxury through restraint: a neutral palette, confident '
-                  'typography, generous space, and surfaces that feel '
-                  'considered rather than decorated.',
+            AppSectionHeader(
+              eyebrow: strings.designEyebrow,
+              title: strings.designHeadline,
+              description: strings.designDescription,
             ),
             const SizedBox(height: AppSpacing.xl),
             _ShowcaseHeading(
-              title: 'Monochrome palette',
-              description: 'Color is a role, not an ornament.',
+              title: strings.monochromePalette,
+              description: strings.colorIsRole,
             ),
             const SizedBox(height: AppSpacing.md),
             Wrap(
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
-              children: const <Widget>[
+              children: <Widget>[
                 _ColorSample(
-                  label: 'Ink',
+                  label: strings.ink,
                   hex: '#171715',
                   color: AppPalette.ink,
                   foreground: AppPalette.white,
                 ),
                 _ColorSample(
-                  label: 'Graphite',
+                  label: strings.graphite,
                   hex: '#555550',
                   color: AppPalette.graphite,
                   foreground: AppPalette.white,
                 ),
                 _ColorSample(
-                  label: 'Mist',
+                  label: strings.mist,
                   hex: '#E8E8E3',
                   color: AppPalette.mist,
                   foreground: AppPalette.ink,
                 ),
                 _ColorSample(
-                  label: 'Paper',
+                  label: strings.paper,
                   hex: '#FBFBF9',
                   color: AppPalette.paper,
                   foreground: AppPalette.ink,
@@ -69,8 +68,8 @@ class DesignSystemScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xl),
             _ShowcaseHeading(
-              title: 'Typography',
-              description: 'Hierarchy first. Decoration last.',
+              title: strings.typography,
+              description: strings.hierarchyFirst,
             ),
             const SizedBox(height: AppSpacing.md),
             AppCard(
@@ -78,24 +77,26 @@ class DesignSystemScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Display',
+                    strings.displayLabel,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: colors.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Make room\nfor clarity.',
+                    strings.displaySample,
                     style: theme.textTheme.displaySmall,
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   Divider(color: colors.outlineVariant),
                   const SizedBox(height: AppSpacing.lg),
-                  Text('Section heading', style: theme.textTheme.titleLarge),
+                  Text(
+                    strings.sectionHeading,
+                    style: theme.textTheme.titleLarge,
+                  ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Body copy should stay readable, relaxed, and comfortable '
-                    'at larger accessibility text sizes.',
+                    strings.typographyBody,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: colors.onSurfaceVariant,
                       height: 1.55,
@@ -106,19 +107,18 @@ class DesignSystemScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xl),
             _ShowcaseHeading(
-              title: 'Surfaces',
-              description: 'Group related content; leave the rest open.',
+              title: strings.surfaces,
+              description: strings.surfaceDescription,
             ),
             const SizedBox(height: AppSpacing.md),
             AppCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Standard card', style: theme.textTheme.titleMedium),
+                  Text(strings.standardCard, style: theme.textTheme.titleMedium),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'White surface, fine neutral outline, 20 px radius, '
-                    'no heavy shadow.',
+                    strings.cardDescription,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colors.onSurfaceVariant,
                       height: 1.45,
@@ -133,7 +133,7 @@ class DesignSystemScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(AppRadii.control),
                     ),
                     child: Text(
-                      'Secondary surface',
+                      strings.secondarySurface,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: colors.onSurface,
                         fontWeight: FontWeight.w600,
@@ -145,8 +145,8 @@ class DesignSystemScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xl),
             _ShowcaseHeading(
-              title: 'Controls',
-              description: 'Clear labels, comfortable targets, quiet feedback.',
+              title: strings.controls,
+              description: strings.controlsDescription,
             ),
             const SizedBox(height: AppSpacing.md),
             AppCard(
@@ -155,17 +155,16 @@ class DesignSystemScreen extends StatelessWidget {
                 children: <Widget>[
                   FilledButton(
                     onPressed: () => context.pushNamed('foundation'),
-                    child: const Text('Primary action'),
+                    child: Text(strings.primaryAction),
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   OutlinedButton(
                     onPressed: () => context.pop(),
-                    child: const Text('Secondary action'),
+                    child: Text(strings.secondaryAction),
                   ),
                   const SizedBox(height: AppSpacing.md),
                   Text(
-                    'Buttons use a minimum 48 px height. Real actions should '
-                    'always have a clear label and a meaningful result.',
+                    strings.buttonGuidance,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: colors.onSurfaceVariant,
                       height: 1.45,
@@ -176,8 +175,8 @@ class DesignSystemScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xl),
             _ShowcaseHeading(
-              title: 'Spacing rhythm',
-              description: 'A small scale keeps layouts consistent.',
+              title: strings.spacingRhythm,
+              description: strings.spacingDescription,
             ),
             const SizedBox(height: AppSpacing.md),
             AppCard(
@@ -208,7 +207,10 @@ class DesignSystemScreen extends StatelessWidget {
 }
 
 class _ShowcaseHeading extends StatelessWidget {
-  const _ShowcaseHeading({required this.title, required this.description});
+  const _ShowcaseHeading({
+    required this.title,
+    required this.description,
+  });
 
   final String title;
   final String description;
@@ -271,7 +273,7 @@ class _ColorSample extends StatelessWidget {
                       ? Border.all(color: colors.outlineVariant)
                       : null,
                 ),
-                alignment: Alignment.bottomLeft,
+                alignment: AlignmentDirectional.bottomStart,
                 padding: const EdgeInsets.all(AppSpacing.sm),
                 child: Text(
                   label,
@@ -310,7 +312,10 @@ class _SpacingSample extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 32,
-          child: Text(label, style: Theme.of(context).textTheme.labelMedium),
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
         ),
         Container(
           height: 12,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/localization/app_strings.dart';
 import '../../../app/theme/app_spacing.dart';
 import '../../../shared/ui/app_card.dart';
 import '../../../shared/ui/app_page.dart';
@@ -11,17 +12,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStrings strings = AppStrings.of(context);
     final ThemeData theme = Theme.of(context);
     final ColorScheme colors = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mobile foundation'),
+        title: Text(strings.homeTitle),
         actions: <Widget>[
           IconButton(
-            tooltip: 'Explore the design system',
+            tooltip: strings.designSystemTooltip,
             onPressed: () => context.pushNamed('design-system'),
             icon: const Icon(Icons.palette_outlined),
+          ),
+          IconButton(
+            tooltip: strings.settingsTooltip,
+            onPressed: () => context.pushNamed('settings'),
+            icon: const Icon(Icons.tune_rounded),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],
@@ -30,13 +37,10 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const AppSectionHeader(
-              eyebrow: 'FLUTTER · ANDROID + IOS',
-              title: 'Quietly capable.',
-              description:
-                  'A considered starting point for mobile apps: clarity in '
-                  'the interface, intention in the architecture, and quality '
-                  'built into the workflow.',
+            AppSectionHeader(
+              eyebrow: strings.homeEyebrow,
+              title: strings.homeHeadline,
+              description: strings.homeDescription,
             ),
             const SizedBox(height: AppSpacing.xl),
             AppCard(
@@ -61,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(width: AppSpacing.md),
                       Expanded(
                         child: Text(
-                          'A solid foundation',
+                          strings.solidFoundation,
                           style: theme.textTheme.titleLarge,
                         ),
                       ),
@@ -69,8 +73,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   Text(
-                    'The best abstraction is the one that makes the next '
-                    'change easier — not the one that adds the most code.',
+                    strings.solidFoundationDescription,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: colors.onSurfaceVariant,
                       height: 1.55,
@@ -79,32 +82,29 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: AppSpacing.lg),
                   Divider(color: colors.outlineVariant),
                   const SizedBox(height: AppSpacing.lg),
-                  const _PrincipleLine(
+                  _PrincipleLine(
                     icon: Icons.phone_iphone_outlined,
-                    title: 'Mobile, first',
-                    description:
-                        'Respect platform navigation, motion, and safe areas.',
+                    title: strings.mobileFirst,
+                    description: strings.mobileFirstDescription,
                   ),
                   const SizedBox(height: AppSpacing.lg),
-                  const _PrincipleLine(
+                  _PrincipleLine(
                     icon: Icons.account_tree_outlined,
-                    title: 'Clear boundaries',
-                    description:
-                        'Riverpod for state and dependencies; go_router for routes.',
+                    title: strings.clearBoundaries,
+                    description: strings.clearBoundariesDescription,
                   ),
                   const SizedBox(height: AppSpacing.lg),
-                  const _PrincipleLine(
+                  _PrincipleLine(
                     icon: Icons.accessibility_new_outlined,
-                    title: 'Accessible by default',
-                    description:
-                        'Text scaling, semantics, contrast, and recovery matter.',
+                    title: strings.accessibleByDefault,
+                    description: strings.accessibleByDefaultDescription,
                   ),
                 ],
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
             Text(
-              'EXPLORE THE FOUNDATION',
+              strings.exploreFoundation,
               style: theme.textTheme.labelMedium?.copyWith(
                 color: colors.onSurfaceVariant,
                 letterSpacing: 1.4,
@@ -115,21 +115,20 @@ class HomeScreen extends StatelessWidget {
             AppCard(
               onTap: () => context.pushNamed('design-system'),
               padding: const EdgeInsets.all(AppSpacing.md),
-              child: const _DestinationRow(
+              child: _DestinationRow(
                 icon: Icons.palette_outlined,
-                title: 'Design system',
-                description: 'Monochrome tokens, type, surfaces, and controls.',
+                title: strings.designSystemTitle,
+                description: strings.designSystemDescription,
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
             AppCard(
               onTap: () => context.pushNamed('foundation'),
               padding: const EdgeInsets.all(AppSpacing.md),
-              child: const _DestinationRow(
+              child: _DestinationRow(
                 icon: Icons.architecture_outlined,
-                title: 'Engineering principles',
-                description:
-                    'Simple architecture, SOLID, and purposeful patterns.',
+                title: strings.foundationTitle,
+                description: strings.engineeringDescription,
               ),
             ),
           ],
@@ -228,6 +227,7 @@ class _DestinationRow extends StatelessWidget {
         const SizedBox(width: AppSpacing.sm),
         Icon(
           Icons.arrow_forward_ios_rounded,
+          matchTextDirection: true,
           size: 16,
           color: colors.onSurfaceVariant,
         ),

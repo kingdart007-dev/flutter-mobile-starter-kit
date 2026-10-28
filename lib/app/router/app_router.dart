@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/design_system/presentation/design_system_screen.dart';
 import '../../features/foundation/presentation/foundation_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/settings/presentation/settings_screen.dart';
+import '../localization/app_strings.dart';
 
 final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
   final GoRouter router = GoRouter(
@@ -31,16 +33,24 @@ final Provider<GoRouter> appRouterProvider = Provider<GoRouter>((ref) {
               return const DesignSystemScreen();
             },
           ),
+          GoRoute(
+            path: 'settings',
+            name: 'settings',
+            builder: (BuildContext context, GoRouterState state) {
+              return const SettingsScreen();
+            },
+          ),
         ],
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) {
+      final AppStrings strings = AppStrings.of(context);
       return Scaffold(
-        appBar: AppBar(title: const Text('Page unavailable')),
-        body: const Center(
+        appBar: AppBar(title: Text(strings.pageUnavailable)),
+        body: Center(
           child: Padding(
-            padding: EdgeInsets.all(24),
-            child: Text('We could not find that page.'),
+            padding: const EdgeInsets.all(24),
+            child: Text(strings.pageUnavailableMessage),
           ),
         ),
       );
