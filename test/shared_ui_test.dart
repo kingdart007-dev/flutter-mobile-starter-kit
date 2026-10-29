@@ -48,11 +48,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AppButton(
-              label: 'Create',
-              onPressed: () {},
-              expand: true,
-            ),
+            body: AppButton(label: 'Create', onPressed: () {}, expand: true),
           ),
         ),
       );

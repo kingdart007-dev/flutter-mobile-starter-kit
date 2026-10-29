@@ -40,8 +40,7 @@ class AppButton extends StatelessWidget {
       loadingLabel: loadingLabel,
     );
 
-    final VoidCallback? effectiveOnPressed =
-        isLoading ? null : onPressed;
+    final VoidCallback? effectiveOnPressed = isLoading ? null : onPressed;
 
     final Widget button = switch (variant) {
       AppButtonVariant.primary => FilledButton(
